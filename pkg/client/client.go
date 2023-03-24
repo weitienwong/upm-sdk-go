@@ -24,12 +24,12 @@ type (
 	}
 )
 
-// NewClient create a instance of Client
+// NewClient create an instance of Client
 func NewClient(options Options) (Client, error) {
 	return internal.NewClient(options)
 }
 
-// NewRegistryClient create a instance of RegistryClient
+// NewRegistryClient create an instance of RegistryClient
 func NewRegistryClient(options Options) (RegistryClient, error) {
 	return internal.NewRegistryClient(options)
 }
