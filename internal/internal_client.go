@@ -9,7 +9,7 @@ import (
 )
 
 const RegisterPath = "/api/upm-sdk/register"
-const UserInfoPath = "/api/gateway/v1/current_user"
+const UserInfoPath = "/api/gateway/v1/current_user_detail"
 
 type Registry struct {
 	Principal string

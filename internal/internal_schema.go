@@ -26,6 +26,7 @@ type App struct {
 	IconPath    string  `json:"iconPath,omitempty"`
 	Description string  `json:"description,omitempty"`
 	Menus       []*Menu `json:"menus,omitempty"`
+	Apis        []*Api  `json:"apis"`
 }
 
 type Group struct {
@@ -39,4 +40,9 @@ type Group struct {
 type Panel struct {
 	Name     string  `json:"name"`
 	GroupIds []int64 `json:"groupIds"`
+}
+
+type Api struct {
+	RequestMethod string `json:"requestMethod"`
+	Url           string `json:"url"`
 }

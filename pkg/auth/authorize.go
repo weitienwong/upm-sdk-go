@@ -6,13 +6,26 @@ import (
 	"log"
 )
 
-func Authorize(path, token string, client client.Client) bool {
-	_, err := client.User(token)
+func Authorize(path, method, token string, client client.Client) bool {
+	user, err := client.User(token)
 	if err != nil {
 		log.Println("获取UPM用户信息失败\n", err)
 		return false
 	}
-	// 遍历用户权限是否匹配path
-	patterns := []string{}
-	return match.HitMatch(path, patterns)
+	// 遍历应用
+	for _, app := range user.Apps {
+		var patterns []string
+		// 遍历授权API
+		for _, api := range app.Apis {
+			// 过滤请求方法与参数method相同的授权API
+			if method == api.RequestMethod {
+				patterns = append(patterns, api.Url)
+			}
+		}
+		// 是否命中
+		if match.HitMatch(path, patterns) {
+			return true
+		}
+	}
+	return false
 }

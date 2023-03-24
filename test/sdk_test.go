@@ -151,7 +151,7 @@ func TestUserInfo(t *testing.T) {
 		t.Error("无法建立连接")
 	}
 
-	token := "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwNzQ2NDcsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTY3OTQ2OTg0Nzc2MH0.nvwjw60C6e-e7xm09uPnEXZLzODtbH0MzJR_eDCmPzjMbHoz3O2gnIJO4rVbVpIn_SDzb7VBYmVQdpJ-FTP0_w"
+	token := "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNTE2MDIsInN1YiI6ImxpeWFuZ3lhbmciLCJjcmVhdGVkIjoxNjc5NjQ2ODAyMDgzfQ.OVCSeMreKDPaCSdiRl7z9gqpRSupzxK9JPcg8UL04J1oEGHvc_aAQJdcLHFcjsEWtmJDOI1B6mNsSlwxU0ZU7A"
 
 	u, err := c.User(token)
 
