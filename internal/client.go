@@ -2,6 +2,7 @@ package internal
 
 import (
 	"errors"
+	"fmt"
 	"net"
 	"strings"
 	"time"
@@ -53,7 +54,22 @@ func dial(hostPort string) error {
 	if hostPort == "" {
 		return errors.New("hostPort not provide")
 	}
-	return dialTimeout(strings.TrimPrefix(hostPort, "http://"), time.Second)
+
+	var protocal string
+
+	if strings.HasPrefix(hostPort, "http") {
+		protocal = "http"
+	}
+	if strings.HasPrefix(hostPort, "https") {
+		protocal = "https"
+	}
+
+	if protocal != "" {
+		hostPort = strings.TrimPrefix(hostPort, protocal+"://")
+		hostPort = fmt.Sprintf("%s:%s", hostPort, protocal)
+	}
+
+	return dialTimeout(hostPort, time.Second)
 }
 
 // connects to the address on the named network taking a timeout.
@@ -62,5 +78,6 @@ func dialTimeout(hostport string, timeout time.Duration) error {
 		timeout = time.Second
 	}
 	_, err := net.DialTimeout("tcp", hostport, timeout)
+
 	return err
 }
