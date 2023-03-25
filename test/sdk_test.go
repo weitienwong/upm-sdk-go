@@ -3,7 +3,7 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/weitienwong/upm-sdk-go/pkg/client"
+	"github.com/weitienwong/upm-sdk-go/pkg/upm"
 	"testing"
 )
 
@@ -126,16 +126,16 @@ const principal = `{
 }`
 
 func TestRegistry(t *testing.T) {
-	c, err := client.NewRegistryClient(client.Options{
-		HostPort:  "http://10.0.100.244:38086",
-		AuthToken: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2NzA4NDQ0MDAsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTY3MDIzOTYwMDI1OH0.DB2iNeBNBylWyLNsWWQutAj5No4xg0qpMvWWYJr6eSJQFUvbiQ4hoi9Z5bd3f8wCm9gSVT9vzPTYfSlyiF2BTQ'",
+	c, err := upm.NewRegistryClient(upm.ClientOptions{
+		HostPort:  "http://gateway.dev.bizseer.com",
+		AuthToken: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNTE2MDIsInN1YiI6ImxpeWFuZ3lhbmciLCJjcmVhdGVkIjoxNjc5NjQ2ODAyMDgzfQ.OVCSeMreKDPaCSdiRl7z9gqpRSupzxK9JPcg8UL04J1oEGHvc_aAQJdcLHFcjsEWtmJDOI1B6mNsSlwxU0ZU7A",
 	})
 
 	if err != nil {
 		t.Error("无法建立连接")
 	}
 
-	resp, err := c.Register(client.Registry{Principal: principal})
+	resp, err := c.Register(upm.Registry{Principal: principal})
 	if err != nil {
 		t.Error(err)
 	}
@@ -143,8 +143,8 @@ func TestRegistry(t *testing.T) {
 }
 
 func TestUserInfo(t *testing.T) {
-	c, err := client.NewClient(client.Options{
-		HostPort: "http://10.0.100.244:38090",
+	c, err := upm.NewClient(upm.ClientOptions{
+		HostPort: "http://gateway.dev.bizseer.com",
 	})
 
 	if err != nil {
