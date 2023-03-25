@@ -1,12 +1,12 @@
 package auth
 
 import (
-	"github.com/weitienwong/upm-sdk-go/pkg/client"
 	"github.com/weitienwong/upm-sdk-go/pkg/match"
+	"github.com/weitienwong/upm-sdk-go/pkg/upm"
 	"log"
 )
 
-func Authorize(path, method, token string, client client.Client) bool {
+func Authorize(path, method, token string, client upm.Client) bool {
 	user, err := client.User(token)
 	if err != nil {
 		log.Println("获取UPM用户信息失败\n", err)
