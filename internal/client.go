@@ -66,9 +66,15 @@ func dial(hostPort string) error {
 
 	if protocal != "" {
 		hostPort = strings.TrimPrefix(hostPort, protocal+"://")
-		hostPort = fmt.Sprintf("%s:%s", hostPort, protocal)
 	}
 
+	arr := strings.Split(hostPort, ":")
+
+	if len(arr) == 2 {
+		hostPort = arr[0]
+		protocal = arr[1]
+	}
+	hostPort = fmt.Sprintf("%s:%s", hostPort, protocal)
 	return dialTimeout(hostPort, time.Second)
 }
 

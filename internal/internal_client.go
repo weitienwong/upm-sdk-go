@@ -8,7 +8,7 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-const RegisterPath = "/api/upm-sdk/register"
+const RegisterPath = "/api/upm-service/manage/data/register"
 const UserInfoPath = "/api/gateway/v1/current_user_detail"
 
 type Registry struct {

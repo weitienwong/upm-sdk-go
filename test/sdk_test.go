@@ -8,17 +8,17 @@ import (
 )
 
 const principal = `{
-	"serviceKey": "dataplat-xxx-001",
+	"serviceKey": "chaos-engineering-app-02",
 	"serviceAccess": null,
 	"apps": [
 		{
-			"appCode": "chaos-engineering-app-01",
-			"appTitle": "混沌工程-01",
+			"appCode": "chaos-engineering-app-02",
+			"appTitle": "混沌工程-02",
 			"appUrl": "http://cloudwrecker.test.bizseer.com/",
 			"appIcon": null,
-			"groupName": "平台管理",
+			"groupName": "混沌工程",
 			"groupIcon": "platform-management",
-			"groupPanelName": "数据中台",
+			"groupPanelName": "混沌工程",
 			"reqApis": [
 				{
 					"httpMethod": "GET",
@@ -29,54 +29,52 @@ const principal = `{
 			"menus": [
 				{
 					"code": "CW-001",
-					"title": "稳定性平台",
-					"path": "",
+					"title": "概览",
+					"path": "/overview",
 					"icon": "storage",
-					"subMenus": [
-						{
-							"code": "CW-001-001",
-							"title": "概览",
-							"path": "/fault-injection/overview",
-							"icon": "storage",
-							"subMenus": []
-						}, {
-							"code": "CW-001-002",
-							"title": "场景管理",
-							"path": "/fault-injection/experiment",
-							"icon": "storage",
-							"subMenus": []
-						}, {
-							"code": "CW-001-003",
-							"title": "专家经验库",
-							"path": "/fault-injection/expert-library/",
-							"icon": "storage",
-							"subMenus": []
-						}, {
-							"code": "CW-001-004",
-							"title": "运维对抗",
-							"path": "/fault-injection/batch",
-							"icon": "storage",
-							"subMenus": []
-						}, {
-							"code": "CW-001-005",
-							"title": "定时计划",
-							"path": "/fault-injection/schedule",
-							"icon": "storage",
-							"subMenus": []
-						}, {
-							"code": "CW-001-006",
-							"title": "历史实验",
-							"path": "/fault-injection/experiment-history",
-							"icon": "storage",
-							"subMenus": []
-						}, {
-							"code": "CW-001-007",
-							"title": "爆破点管理",
-							"path": "/fault-injection/shot-point",
-							"icon": "storage",
-							"subMenus": []
-						}
-					]
+					"subMenus": []
+				}, {
+					"code": "CW-002",
+					"title": "场景管理",
+					"path": "/experiment",
+					"icon": "storage",
+					"subMenus": []
+				}, {
+					"code": "CW-003",
+					"title": "专家经验库",
+					"path": "/expert-library",
+					"icon": "storage",
+					"subMenus": []
+				}, {
+					"code": "CW-004",
+					"title": "运维对抗",
+					"path": "/batch",
+					"icon": "storage",
+					"subMenus": []
+				}, {
+					"code": "CW-005",
+					"title": "定时计划",
+					"path": "/schedule",
+					"icon": "storage",
+					"subMenus": []
+				}, {
+					"code": "CW-006",
+					"title": "历史实验",
+					"path": "/experiment-history",
+					"icon": "storage",
+					"subMenus": []
+				}, {
+					"code": "CW-007",
+					"title": "爆破点管理",
+					"path": "/shot-point",
+					"icon": "storage",
+					"subMenus": []
+				}, {
+					"code": "CW-008",
+					"title": "能力模板管理",
+					"path": "/attack-template",
+					"icon": "storage",
+					"subMenus": []
 				}
 			],
 			"menuRegisterStrategy": 0,
@@ -124,11 +122,12 @@ const principal = `{
 		}
 	]
 }`
+const token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwNzQ2NDcsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTY3OTQ2OTg0Nzc2MH0.nvwjw60C6e-e7xm09uPnEXZLzODtbH0MzJR_eDCmPzjMbHoz3O2gnIJO4rVbVpIn_SDzb7VBYmVQdpJ-FTP0_w"
 
 func TestRegistry(t *testing.T) {
 	c, err := upm.NewRegistryClient(upm.ClientOptions{
-		HostPort:  "http://gateway.dev.bizseer.com",
-		AuthToken: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNTE2MDIsInN1YiI6ImxpeWFuZ3lhbmciLCJjcmVhdGVkIjoxNjc5NjQ2ODAyMDgzfQ.OVCSeMreKDPaCSdiRl7z9gqpRSupzxK9JPcg8UL04J1oEGHvc_aAQJdcLHFcjsEWtmJDOI1B6mNsSlwxU0ZU7A",
+		HostPort:  "http://10.0.100.244:38086",
+		AuthToken: token,
 	})
 
 	if err != nil {
