@@ -3,22 +3,20 @@ package auth
 import (
 	"github.com/weitienwong/upm-sdk-go/pkg/match"
 	"github.com/weitienwong/upm-sdk-go/pkg/upm"
-	"log"
+	"strings"
 )
 
-func Authorize(path, method, token string, client upm.Client) bool {
-	user, err := client.User(token)
-	if err != nil {
-		log.Println("获取UPM用户信息失败\n", err)
+func Authorize(path, method string, apps []*upm.App) bool {
+	if len(apps) == 0 {
 		return false
 	}
 	// 遍历应用
-	for _, app := range user.Apps {
+	for _, app := range apps {
 		var patterns []string
 		// 遍历授权API
 		for _, api := range app.Apis {
 			// 过滤请求方法与参数method相同的授权API
-			if method == api.RequestMethod {
+			if strings.EqualFold(method, api.RequestMethod) {
 				patterns = append(patterns, api.Url)
 			}
 		}

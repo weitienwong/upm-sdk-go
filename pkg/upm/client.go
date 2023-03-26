@@ -12,6 +12,8 @@ type (
 	// UserDetail is the structure of user from UPM
 	UserDetail = internal.User
 
+	App = internal.App
+
 	// Client is the client for getting information about user
 	Client interface {
 		// User request user information from UPM
