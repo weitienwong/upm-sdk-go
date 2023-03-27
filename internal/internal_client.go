@@ -8,8 +8,10 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-const RegisterPath = "/api/upm-service/manage/data/register"
-const UserInfoPath = "/api/gateway/v1/current_user_detail"
+const (
+	RegisterPath   = "/api/upm-service/manage/data/register"
+	UserDetailPath = "/api/gateway/v1/current_user_detail"
+)
 
 type Registry struct {
 	Principal string
@@ -29,24 +31,20 @@ type Response struct {
 	Data any    `json:"data"`
 }
 
-func (r *registryClient) Register(registry Registry) (*Response, error) {
+func (c *registryClient) Register(registry Registry) (*Response, error) {
 
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 
-	uri := r.Options.HostPort + RegisterPath
-	req.SetRequestURI(uri)
-
-	body := []byte(registry.Principal)
-	req.SetBody(body)
-
+	req.SetRequestURI(c.Options.HostPort + RegisterPath)
+	req.SetBody([]byte(registry.Principal))
 	req.Header.SetContentType("application/json")
 	req.Header.SetMethod("POST")
-	req.Header.Add("Authorization", r.Options.AuthToken)
+	req.Header.Add("Authorization", c.Options.AuthToken)
 
 	resp := fasthttp.AcquireResponse()
-
 	defer fasthttp.ReleaseResponse(resp)
+
 	client := &fasthttp.Client{}
 
 	if err := client.Do(req, resp); err != nil {
@@ -54,11 +52,10 @@ func (r *registryClient) Register(registry Registry) (*Response, error) {
 	}
 
 	response := &Response{}
-	err := json.Unmarshal(resp.Body(), response)
-
-	if err != nil {
+	if err := json.Unmarshal(resp.Body(), response); err != nil {
 		return nil, err
 	}
+
 	return response, nil
 }
 
@@ -67,25 +64,29 @@ func (c *client) User(token string) (*User, error) {
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 
-	uri := c.Options.HostPort + UserInfoPath
-	req.SetRequestURI(uri)
+	req.SetRequestURI(c.Options.HostPort + UserDetailPath)
 	req.Header.SetMethod("GET")
 	req.Header.Add("Authorization", token)
 
 	resp := fasthttp.AcquireResponse()
-
 	defer fasthttp.ReleaseResponse(resp)
+
 	client := &fasthttp.Client{}
 
 	if err := client.Do(req, resp); err != nil {
 		return nil, err
 	}
 
+	if resp.StatusCode() != fasthttp.StatusOK {
+		return nil, errors.New(string(resp.Body()))
+	}
+
 	response := &Response{}
-	err := json.Unmarshal(resp.Body(), response)
-	if err != nil {
+
+	if err := json.Unmarshal(resp.Body(), response); err != nil {
 		return nil, err
 	}
+
 	if response.Code != 0 {
 		return nil, errors.New(fmt.Sprintf("获取用户信息失败: %s", response.Msg))
 	}
