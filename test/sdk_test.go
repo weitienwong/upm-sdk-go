@@ -108,7 +108,7 @@ const principal = `{
                 },
                 {
                     "httpMethod": "POST",
-                    "path": "/cloudbed/agent/registry/host",
+                    "path": "/cloudbed/agent/refresh/host",
                     "name": "刷新爆破点"
                 },
                 {
@@ -397,12 +397,12 @@ const principal = `{
                     "name": "修改状态检查"
                 },
                 {
-                    "httpMethod": "PUT",
+                    "httpMethod": "GET",
                     "path": "/cloudbed/scene/pipeline/inspection/*",
                     "name": "获取状态检查"
                 },
                 {
-                    "httpMethod": "PUT",
+                    "httpMethod": "DELETE",
                     "path": "/cloudbed/scene/pipeline/inspection/*",
                     "name": "删除状态检查"
                 },
@@ -614,7 +614,11 @@ const principal = `{
 const token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwNzQ2NDcsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTY3OTQ2OTg0Nzc2MH0.nvwjw60C6e-e7xm09uPnEXZLzODtbH0MzJR_eDCmPzjMbHoz3O2gnIJO4rVbVpIn_SDzb7VBYmVQdpJ-FTP0_w"
 
 func TestRegistry(t *testing.T) {
-	bytes, _ := ioutil.ReadFile("~/Desktop/upm.json")
+	bytes, err := ioutil.ReadFile("/Users/farben/Desktop/upm.json")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	c, err := upm.NewRegistryClient(upm.ClientOptions{
 		HostPort:  "http://gateway.dev.bizseer.com",
 		AuthToken: token,
@@ -640,7 +644,7 @@ func TestUserInfo(t *testing.T) {
 		t.Error("无法建立连接")
 	}
 
-	token := "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNTE2MDIsInN1YiI6ImxpeWFuZ3lhbmciLCJjcmVhdGVkIjoxNjc5NjQ2ODAyMDgzfQ.OVCSeMreKDPaCSdiRl7z9gqpRSupzxK9JPcg8UL04J1oEGHvc_aAQJdcLHFcjsEWtmJDOI1B6mNsSlwxU0ZU7A"
+	//token := "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNTE2MDIsInN1YiI6ImxpeWFuZ3lhbmciLCJjcmVhdGVkIjoxNjc5NjQ2ODAyMDgzfQ.OVCSeMreKDPaCSdiRl7z9gqpRSupzxK9JPcg8UL04J1oEGHvc_aAQJdcLHFcjsEWtmJDOI1B6mNsSlwxU0ZU7A"
 
 	u, err := c.User(token)
 
