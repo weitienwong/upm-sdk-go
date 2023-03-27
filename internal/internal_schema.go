@@ -43,6 +43,6 @@ type Panel struct {
 }
 
 type Api struct {
-	RequestMethod string `json:"requestMethod"`
+	RequestMethod string `json:"reqMethod"`
 	Url           string `json:"url"`
 }
