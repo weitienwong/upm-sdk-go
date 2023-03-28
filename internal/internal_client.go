@@ -9,7 +9,9 @@ import (
 )
 
 const (
-	RegisterPath   = "/api/upm-service/manage/data/register"
+	// RegisterPath 注册地址
+	RegisterPath = "/api/upm-service/manage/data/register"
+	// UserDetailPath 获取用户详情地址
 	UserDetailPath = "/api/gateway/v1/current_user_detail"
 )
 

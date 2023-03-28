@@ -8,19 +8,23 @@ import (
 	"time"
 )
 
+// Client UPM客户端接口
 type Client interface {
 	User(token string) (*User, error)
 }
 
+// RegistryClient 注册资源客户端
 type RegistryClient interface {
 	Register(registry Registry) (*Response, error)
 }
 
+// ClientOptions configuration parameters for creating a Client or RegistryClient.
 type ClientOptions struct {
 	HostPort  string
 	AuthToken string
 }
 
+// NewClient creates an instance of an upm Client
 func NewClient(options ClientOptions) (Client, error) {
 	err := dial(options.HostPort)
 
@@ -32,6 +36,7 @@ func NewClient(options ClientOptions) (Client, error) {
 	}, nil
 }
 
+// NewRegistryClient creates an instance of an upm registry client
 func NewRegistryClient(options ClientOptions) (RegistryClient, error) {
 
 	if options.AuthToken == "" {

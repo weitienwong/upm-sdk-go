@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Authorize 根据path和method匹配用户授权的API资源，命中则返回true，否则返回false
 func Authorize(path, method string, apps []*upm.App) bool {
 	if len(apps) == 0 {
 		return false

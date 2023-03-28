@@ -11,7 +11,7 @@ type (
 	Response = internal.Response
 	// UserDetail is the structure of user from UPM
 	UserDetail = internal.User
-
+	// App a set of resources
 	App = internal.App
 
 	// Client is the client for getting information about user
