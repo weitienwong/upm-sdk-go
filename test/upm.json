@@ -163,6 +163,16 @@
         },
         {
           "httpMethod": "POST",
+          "path": "/rest/cloudbed/asset/host/import",
+          "name": "导入HOST"
+        },
+        {
+          "httpMethod": "POST",
+          "path": "/rest/cloudbed/asset/kubernetes/import",
+          "name": "导入K8S"
+        },
+        {
+          "httpMethod": "POST",
           "path": "/rest/cloudbed/inspection/test",
           "name": "状态检查(测试)"
         },
@@ -507,9 +517,14 @@
           "name": "删除流量模拟"
         },
         {
-          "httpMethod": "GET",
+          "httpMethod": "POST",
           "path": "/rest/cloudbed/monitor/job",
           "name": "获取步骤监控数据"
+        },
+        {
+          "httpMethod": "POST",
+          "path": "/rest/cloudbed/upm/registry",
+          "name": "注册UPM资源"
         }
       ],
       "menus": [

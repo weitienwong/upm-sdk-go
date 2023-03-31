@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-const token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwNzQ2NDcsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTY3OTQ2OTg0Nzc2MH0.nvwjw60C6e-e7xm09uPnEXZLzODtbH0MzJR_eDCmPzjMbHoz3O2gnIJO4rVbVpIn_SDzb7VBYmVQdpJ-FTP0_w"
+const token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODA3NjYxNzgsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTY4MDE2MTM3ODc1OH0.hOgZm9S4ejERER1U4eb1h5tdlgXhVw5dCylUd6CadUDdrZxwu3u7r2zN1jnLiXWsvLpiINMDpm0icHSIa2TthQ"
 
 // 注册
 func TestRegistry(t *testing.T) {
