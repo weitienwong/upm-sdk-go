@@ -10,7 +10,9 @@ import (
 
 // Client UPM客户端接口
 type Client interface {
-	User(token string) (*User, error)
+	GetUserDetail(token string) (*User, error)
+
+	GetUserDetailBySecret(key, secret string) (*User, error)
 }
 
 // RegistryClient 注册资源客户端

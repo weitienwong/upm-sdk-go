@@ -45,11 +45,26 @@ func TestUserInfo(t *testing.T) {
 
 	//token := "Bearer eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNTE2MDIsInN1YiI6ImxpeWFuZ3lhbmciLCJjcmVhdGVkIjoxNjc5NjQ2ODAyMDgzfQ.OVCSeMreKDPaCSdiRl7z9gqpRSupzxK9JPcg8UL04J1oEGHvc_aAQJdcLHFcjsEWtmJDOI1B6mNsSlwxU0ZU7A"
 
-	u, err := c.User(token)
+	u, err := c.GetUserDetail(token)
 
 	if err != nil {
 		t.Error("获取用户失败")
 	}
+
+	b, _ := json.Marshal(u)
+	fmt.Println(string(b))
+}
+
+func TestSecret(t *testing.T) {
+	c, err := upm.NewClient(upm.ClientOptions{
+		HostPort: "http://gateway.dev.bizseer.com",
+	})
+
+	if err != nil {
+		t.Error("无法建立连接")
+	}
+
+	u, err := c.GetUserDetailBySecret("123", "3ad83bd848994fce823ab8a81f5808eb")
 
 	b, _ := json.Marshal(u)
 	fmt.Println(string(b))

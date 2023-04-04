@@ -16,8 +16,10 @@ type (
 
 	// Client is the client for getting information about user
 	Client interface {
-		// User request user information from UPM
-		User(token string) (*UserDetail, error)
+		// GetUserDetail get user information from UPM using the token
+		GetUserDetail(token string) (*UserDetail, error)
+		// GetUserDetailBySecret get user information from UPM using the key and secret
+		GetUserDetailBySecret(key, secret string) (*UserDetail, error)
 	}
 	// RegistryClient is the client for managing the resource of authority
 	RegistryClient interface {

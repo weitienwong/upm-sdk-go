@@ -13,6 +13,9 @@ const (
 	RegisterPath = "/api/upm-service/manage/data/register"
 	// UserDetailPath 获取用户详情地址
 	UserDetailPath = "/api/gateway/v1/current_user_detail"
+
+	HeaderAppKey    = "X-BIZ-OPENAPI-KEY"
+	HeaderAppSecret = "X-BIZ-OPENAPI-SECRET"
 )
 
 type Registry struct {
@@ -61,14 +64,27 @@ func (c *registryClient) Register(registry Registry) (*Response, error) {
 	return response, nil
 }
 
-func (c *client) User(token string) (*User, error) {
+func (c *client) GetUserDetail(token string) (*User, error) {
+	return getUser(c, map[string]string{"Authorization": token})
+}
 
+func (c *client) GetUserDetailBySecret(key, secret string) (*User, error) {
+	return getUser(c, map[string]string{
+		HeaderAppKey:    key,
+		HeaderAppSecret: secret,
+	})
+}
+
+func getUser(c *client, header map[string]string) (*User, error) {
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 
 	req.SetRequestURI(c.Options.HostPort + UserDetailPath)
 	req.Header.SetMethod("GET")
-	req.Header.Add("Authorization", token)
+
+	for k, v := range header {
+		req.Header.Add(k, v)
+	}
 
 	resp := fasthttp.AcquireResponse()
 	defer fasthttp.ReleaseResponse(resp)
